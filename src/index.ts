@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response } from 'express';
 
 const app: Application = express();
 
@@ -6,4 +6,4 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello');
 });
 
-app.listen(5000, () => console.log('Server running'));
+app.listen(5000, async () => console.log('Server running'));
