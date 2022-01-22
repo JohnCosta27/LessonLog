@@ -16,7 +16,7 @@
 
 import express, { Application, Request, Response } from 'express';
 
-export const createServer = () => {
+export const createServer = (): Application => {
   const app: Application = express();
 
   app.get('/', (req: Request, res: Response) => {
