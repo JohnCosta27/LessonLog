@@ -17,7 +17,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import authRouter from './routers/auth.router';
 
-export const createServer = () => {
+export const createServer = (): Application => {
   const app: Application = express();
 
   app.use((req: Request, res: Response, next: NextFunction) => {
