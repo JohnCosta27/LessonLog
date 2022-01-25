@@ -20,15 +20,10 @@ import authRouter from './routers/auth.router';
 export const createServer = (): Application => {
   const app: Application = express();
 
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    res.contentType('application/json');
-    next();
-  });
-
-  app.use(authRouter);
+  app.use('/auth', authRouter);
 
   app.get('/', (req: Request, res: Response) => {
-    res.status(200).send({ data: 'Hello' });
+    res.status(200).json({ data: 'Hello' });
   });
 
   return app;

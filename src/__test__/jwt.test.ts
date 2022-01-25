@@ -10,7 +10,7 @@ describe('Testing JWTs', () => {
     const testToken: string = generateJwt({ hello: 'world' }, 60);
 
     const verified: jwtToken = verifyJwt(testToken);
-    expect(verified.error.length != 0);
+    expect(verified.error == null);
   });
 
   test('Invalid JWT', () => {
@@ -29,6 +29,6 @@ describe('Testing check refresh token function', () => {
   test('Get new token if valid refresh token', () => {
     const refreshToken: string = generateJwt({ hello: 'world' }, 3600);
     const accessToken: jwtToken = generateAccessToken(refreshToken);
-    expect(accessToken.error.length == 0);
+    expect(accessToken.error == null);
   });
 });

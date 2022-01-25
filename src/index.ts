@@ -8,12 +8,8 @@
 //
 //======================================================
 
-import express, { Application, Request, Response } from 'express';
+import { createServer } from './app';
+import { Application } from 'express';
 
-const app: Application = express();
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello');
-});
-
+const app: Application = createServer();
 app.listen(5000, async () => console.log('Server running'));

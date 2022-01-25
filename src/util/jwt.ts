@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config/env';
 
 export type jwtToken = {
-  token: string;
-  error: string;
+  token: string | null;
+  error: string | null;
 };
 
 /**
@@ -36,9 +36,9 @@ export const verifyJwt = (token: string): jwtToken => {
 export const generateAccessToken = (refreshToken: string): jwtToken => {
   const verifyToken: jwtToken = verifyJwt(refreshToken);
 
-  if (verifyToken.error.length == 0) {
-    return { token: '', error: 'Invalid refresh token.' };
+  if (verifyToken.error == null) {
+    return { token: null, error: 'Invalid refresh token.' };
   } else {
-    return { token: generateJwt({ hello: 'world' }, 3600), error: '' };
+    return { token: generateJwt({ hello: 'world' }, 3600), error: null };
   }
 };
