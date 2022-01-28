@@ -8,6 +8,10 @@ const server: Application = createServer();
 
 const registerEndpoint = '/auth/register';
 
+beforeAll(() => {
+  return prisma.users.deleteMany({});
+});
+
 describe('POST Register User', () => {
   test('Empty request should 400 error', (done: jest.DoneCallback) => {
     request(server)
