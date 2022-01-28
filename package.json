@@ -22,8 +22,11 @@
   },
   "homepage": "https://github.com/JohnCosta27/LessonLog#readme",
   "dependencies": {
+    "@prisma/client": "^3.8.1",
+    "body-parser": "^1.19.1",
     "dotenv": "^11.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "js-sha512": "^0.8.0"
   },
   "devDependencies": {
     "@supabase/supabase-js": "^1.29.1",
@@ -35,9 +38,14 @@
     "jest": "^27.4.7",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.15",
+    "prisma": "^3.8.1",
     "supertest": "^6.2.1",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
+  },
+  "globalSetup": "./src/__test__/setup.ts",
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
   }
 }

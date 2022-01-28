@@ -15,6 +15,7 @@
 //======================================================
 
 import express, { Application, NextFunction, Request, Response } from 'express';
+var bodyParser = require('body-parser');
 import authRouter from './routers/auth.router';
 
 export const createServer = (): Application => {
@@ -25,6 +26,7 @@ export const createServer = (): Application => {
     next();
   });
 
+  app.use(bodyParser.json());
   app.use(authRouter);
 
   app.get('/', (req: Request, res: Response) => {
