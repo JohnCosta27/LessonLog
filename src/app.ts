@@ -21,7 +21,6 @@ import authRouter from './routers/auth.router';
 export const createServer = (): Application => {
   const app: Application = express();
 
-<<<<<<< HEAD
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.contentType('application/json');
     next();
@@ -29,9 +28,6 @@ export const createServer = (): Application => {
 
   app.use(bodyParser.json());
   app.use(authRouter);
-=======
-  app.use('/auth', authRouter);
->>>>>>> b892c6a68c2d80fe7e77eab5be18d0c65aa0e736
 
   app.get('/', (req: Request, res: Response) => {
     res.status(200).json({ data: 'Hello' });
