@@ -6,9 +6,13 @@ import { PrismaClient, users } from '@prisma/client';
 const prisma = new PrismaClient();
 const server: Application = createServer();
 
-const registerEndpoint = '/auth/register';
+const registerEndpoint = '/register';
 
 beforeAll(() => {
+  return prisma.users.deleteMany({});
+});
+
+afterAll(() => {
   return prisma.users.deleteMany({});
 });
 

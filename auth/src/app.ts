@@ -27,9 +27,9 @@ export const createServer = (): Application => {
   });
 
   app.use(bodyParser.json());
-  app.use(authRouter);
+  app.use('/', authRouter);
 
-  app.get('/', (req: Request, res: Response) => {
+  app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({ data: 'Hello' });
   });
 

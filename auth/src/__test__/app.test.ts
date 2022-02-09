@@ -4,7 +4,7 @@ import { Application } from 'express';
 
 const server: Application = createServer();
 
-const statusEndpoint: string = '/';
+const statusEndpoint: string = '/health';
 describe(`GET ${statusEndpoint}`, () => {
   test('GET Request', (done: jest.DoneCallback) => {
     request(server).get(statusEndpoint).expect('Content-Type', /json/).expect(200, done);

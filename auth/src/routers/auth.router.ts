@@ -1,4 +1,4 @@
-import express, { request, Request, Response, Router } from 'express';
+import express, { request, Request, Response, Router, NextFunction } from 'express';
 import { getMissingBodyError, getEmailError, getDatabaseError } from '../config/messages';
 import { createMissingBody, randomString } from '../util/util';
 import { sha512 } from 'js-sha512';
@@ -8,7 +8,7 @@ import { PrismaClient, users } from '@prisma/client';
 const prisma = new PrismaClient();
 const authRouter: Router = express.Router();
 
-authRouter.post('/auth/register', async (req: Request, res: Response) => {
+authRouter.post('/register', async (req: Request, res: Response) => {
   const requiredKeys: string[] = ['firstname', 'surname', 'email', 'password'];
   const missingBody: string[] = createMissingBody(requiredKeys, req.body);
 
