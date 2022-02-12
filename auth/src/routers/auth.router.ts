@@ -1,4 +1,4 @@
-import express, { request, Request, Response, Router, NextFunction } from 'express';
+import express, { Request, Response, Router, NextFunction } from 'express';
 import { getMissingBodyError, getEmailError, getWrongDataTypeError } from '../config/messages';
 import { createMissingBody, createWrongDatatypeBody, randomString } from '../util/util';
 import { sha512 } from 'js-sha512';
@@ -78,4 +78,4 @@ authRouter.post('/register', async (req: Request, res: Response) => {
   }
 });
 
-export = authRouter;
+export default authRouter;
