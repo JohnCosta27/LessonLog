@@ -1,7 +1,7 @@
 import { createServer } from '../app';
 import request from 'supertest';
 import { Application } from 'express';
-import { PrismaClient, users } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const server: Application = createServer();
@@ -55,6 +55,20 @@ describe('POST Register User', () => {
       .expect(200, done);
   });
 
+  test('Request with valid data in different order should return 200', (done: jest.DoneCallback) => {
+    request(server)
+      .post(registerEndpoint)
+      .set('Accept', 'application/json')
+      .send({
+        surname: 'Costa2',
+        email: 'john@email2.com',
+        firstname: 'John2',
+        password: 'HelloWorld',
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+
   test('Request with duplicate data should return 400', (done: jest.DoneCallback) => {
     request(server)
       .post(registerEndpoint)
@@ -68,6 +82,23 @@ describe('POST Register User', () => {
       .expect('Content-Type', /json/)
       .expect({
         error: 'Email has already been registered.',
+      })
+      .expect(400, done);
+  });
+
+  test('Request with wrong datatypes should return 400', (done: jest.DoneCallback) => {
+    request(server)
+      .post(registerEndpoint)
+      .set('Accept', 'application/json')
+      .send({
+        firstname: 5,
+        surname: 'Costa',
+        email: 3.2,
+        password: [],
+      })
+      .expect('Content-Type', /json/)
+      .expect({
+        error: 'Items were not datatype.',
       })
       .expect(400, done);
   });
