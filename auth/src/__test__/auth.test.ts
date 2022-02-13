@@ -98,7 +98,8 @@ describe('POST Register User', () => {
       })
       .expect('Content-Type', /json/)
       .expect({
-        error: 'Items were not datatype.',
+        error: 'The following items were of the wrong datatype',
+        items: ['firstname', 'email', 'password'],
       })
       .expect(400, done);
   });

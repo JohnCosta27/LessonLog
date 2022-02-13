@@ -53,8 +53,11 @@ authRouter.post('/register', async (req: Request, res: Response) => {
       });
     });
 
-    if (createWrongDatatypeBody(valueDatatype).length != 0) {
-      res.status(400).send(getWrongDataTypeError());
+    const wrongDataBody: valueDatatype[] = createWrongDatatypeBody(valueDatatype);
+
+    if (wrongDataBody.length != 0) {
+      const wrongBodyData: string[] = wrongDataBody.map((item: valueDatatype) => item.key);
+      res.status(400).send(getWrongDataTypeError(wrongBodyData));
     } else {
       const passwordSalt: string = randomString(PASSWORD_SALT_LENGTH);
       const passwordHash: string = sha512(req.body.password + passwordSalt);

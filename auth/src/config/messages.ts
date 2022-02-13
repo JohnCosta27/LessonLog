@@ -10,6 +10,6 @@ export const getDatabaseError = (): object => {
   return { error: 'An unexpected database error occured' };
 };
 
-export const getWrongDataTypeError = (): object => {
-  return { error: 'Items were not datatype.' };
+export const getWrongDataTypeError = (wrongItems: string[]): object => {
+  return { error: 'The following items were of the wrong datatype', items: wrongItems };
 };

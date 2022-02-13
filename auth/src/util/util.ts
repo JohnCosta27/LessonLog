@@ -10,8 +10,8 @@ export const createMissingBody = (neededKeys: keyDatatype[], body: Object): stri
   return missingBody;
 };
 
-export const createWrongDatatypeBody = (neededKeys: valueDatatype[]): object[] => {
-  const wrongDatatypeBody: object[] = neededKeys.filter(
+export const createWrongDatatypeBody = (neededKeys: valueDatatype[]): valueDatatype[] => {
+  const wrongDatatypeBody: valueDatatype[] = neededKeys.filter(
     (key) => key.datatype != key.actualDatatype
   );
 
