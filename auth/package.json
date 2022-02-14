@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "test:run": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage && istanbul-badges-readme",
     "make-badges": "istanbul-badges-readme",
     "build": "tsc -p ."
   },
