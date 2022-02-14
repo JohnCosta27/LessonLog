@@ -8,7 +8,7 @@ A collection of projects which allows my projects to run, this repo is used as a
 
 This is the micro service which provides authentication and authorisation systems, it allows people to login and register across my projects.
 
-![Statements](#statements#)
-![Branches](#branches#)
-![Functions](#functions#)
-![Lines](#lines#)
+![Statements](https://img.shields.io/badge/statements-92.15%25-brightgreen.svg?style=flat)
+![Branches](https://img.shields.io/badge/branches-66.66%25-red.svg?style=flat)
+![Functions](https://img.shields.io/badge/functions-85%25-yellow.svg?style=flat)
+![Lines](https://img.shields.io/badge/lines-90.9%25-brightgreen.svg?style=flat)
