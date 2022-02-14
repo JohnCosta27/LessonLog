@@ -1,12 +1,13 @@
-import { keyDatatype, valueDatatype } from '../routers/auth.router';
+import { valueDatatype } from 'routesData/auth.data';
 
-export const createMissingBody = (neededKeys: keyDatatype[], body: Object): string[] => {
+export const createMissingBody = (neededKeys: valueDatatype[]): string[] => {
   let missingBody: string[] = [];
-  neededKeys.forEach((key) => {
-    if (!body.hasOwnProperty(key.key)) {
-      missingBody.push(key.key);
+  neededKeys.forEach((item) => {
+    if (typeof item.value === 'undefined') {
+      missingBody.push(item.key);
     }
   });
+
   return missingBody;
 };
 
