@@ -1,15 +1,29 @@
-import Fastify from "fastify";
-const fastify = Fastify({
-  logger: true,
-});
+import express from "express";
+import { ApolloServer, gql } from "apollo-server-express";
 
-fastify.get("/", (request, reply) => {
-  reply.send({ hello: "world" });
-});
-
-fastify.listen({ port: 3000 }, (err, address) => {
-  if (err) {
-    fastify.log.error(err);
-    process.exit(1);
+const typeDefs = gql`
+  type Query {
+    cats: String
   }
+`;
+
+const resolvers = {
+  Query: {
+    cats: () => "hello",
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+const app = express();
+
+server.start().then(() => {
+    server.applyMiddleware({app, path: '/', cors: true});
+});
+
+app.listen(3000, () => {
+  console.log("Server started");
 });
