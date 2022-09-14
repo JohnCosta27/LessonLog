@@ -4,18 +4,27 @@ import {
   InMemoryCache,
   createQuery,
   gql,
+  createMutation,
 } from "@merged/solid-apollo";
-import { createSignal, For } from "solid-js";
+import { createEffect, createSignal, For } from "solid-js";
 import { render } from "solid-js/web";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000",
+  uri: "http://localhost:3001",
   cache: new InMemoryCache(),
 });
 
 const studentQuery = gql`
   query Students {
     students {
+      name
+    }
+  }
+`;
+
+const studentMutation = gql`
+  mutation addStudent($name: String!) {
+    addStudent(name: $name) {
       name
     }
   }
@@ -30,10 +39,21 @@ interface StudentData {
 
 function App() {
   const data = createQuery<StudentData>(studentQuery);
+  const [mutate, newData] = createMutation(studentMutation);
+  createEffect(() => {
+    console.log(newData());
+  })
   return (
-    <For each={data()?.students}>
-      {(student) => <p>{student.name}</p>}
-    </For>
+    <>
+      <button
+        onClick={() => {
+          mutate({ variables: { name: "hi" } });
+        }}
+      >
+        Create student
+      </button>
+      <For each={data()?.students}>{(student) => <p>{student.name}</p>}</For>
+    </>
   );
 }
 
