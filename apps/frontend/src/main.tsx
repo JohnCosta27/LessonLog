@@ -5,7 +5,7 @@ import {
   createQuery,
   gql,
 } from "@merged/solid-apollo";
-import { createEffect, createSignal, For } from "solid-js";
+import { createSignal, For } from "solid-js";
 import { render } from "solid-js/web";
 
 const client = new ApolloClient({
@@ -30,9 +30,6 @@ interface StudentData {
 
 function App() {
   const data = createQuery<StudentData>(studentQuery);
-  createEffect(() => {
-    console.log(data()?.students);
-  });
   return (
     <For each={data()?.students}>
       {(student) => <p>{student.name}</p>}
