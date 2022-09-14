@@ -1,15 +1,27 @@
 import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
+import { PrismaClient } from "@prisma/client";
+
+const app = express();
+const prisma = new PrismaClient();
 
 const typeDefs = gql`
+  type Student {
+    name: String!
+  }
   type Query {
-    cats: String
+    students: [Student]
   }
 `;
 
 const resolvers = {
   Query: {
-    cats: () => "hello",
+    students: async () => {
+      const students = await prisma.students.findMany();
+      const returnStudents = students.map((s) => ({ name: s.name }));
+
+      return returnStudents;
+    },
   },
 };
 
@@ -18,10 +30,8 @@ const server = new ApolloServer({
   resolvers,
 });
 
-const app = express();
-
 server.start().then(() => {
-    server.applyMiddleware({app, path: '/', cors: true});
+  server.applyMiddleware({ app, path: "/", cors: true });
 });
 
 app.listen(3000, () => {
