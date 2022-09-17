@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules"
 }
 
 datasource db {
@@ -13,4 +14,5 @@ datasource db {
 model students {
   id      String      @id @default(uuid())
   name    String
+  startDate DateTime @db.Timestamp()
 }
