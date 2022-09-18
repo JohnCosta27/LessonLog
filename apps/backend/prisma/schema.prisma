@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../node_modules"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -11,8 +11,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model students {
-  id      String      @id @default(uuid())
-  name    String
-  startDate DateTime @db.Timestamp()
+model Students {
+  id        String    @id @default(uuid())
+  name      String
+  startDate DateTime  @db.Timestamp()
+  lessons   Lessons[]
+}
+
+model Lessons {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Students @relation(fields: [studentId], references: [id])
+  date      DateTime @db.Timestamp()
+  price     Float
+  summary   String?
 }
