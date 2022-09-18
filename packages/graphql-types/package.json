@@ -1,0 +1,5 @@
+{
+  "name": "@lessonlog/graphql-types",
+  "main": "src/index.ts",
+  "private": true
+}

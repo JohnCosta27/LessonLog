@@ -8,6 +8,7 @@ import {
 } from "@merged/solid-apollo";
 import { createEffect, createSignal, For } from "solid-js";
 import { render } from "solid-js/web";
+import "./index.css";
 
 const client = new ApolloClient({
   uri: "http://localhost:3001",
@@ -18,53 +19,79 @@ const studentQuery = gql`
   query Students {
     students {
       name
+      startDate
     }
   }
 `;
 
 const studentMutation = gql`
-  mutation addStudent($name: String!) {
-    addStudent(name: $name) {
+  mutation addStudent($name: String!, $startDate: Float!) {
+    addStudent(name: $name, startDate: $startDate) {
       name
+      startDate
     }
   }
 `;
 
 interface Student {
   name: string;
+  startDate: number;
 }
 interface StudentData {
   students: Student[];
 }
 
 function App() {
+  const [name, setName] = createSignal("");
+  const [date, setDate] = createSignal(new Date().getTime());
+
   const data = createQuery<StudentData>(studentQuery);
-  const [mutate, newData] = createMutation(studentMutation);
-  createEffect(() => {
-    console.log(newData());
-  })
+  const [mutate] = createMutation(studentMutation, {
+    refetchQueries: [
+      {
+        query: studentQuery,
+      },
+    ],
+  });
   return (
     <>
+      <input
+        type="text"
+        placeholder="Type here"
+        class="input input-primary w-full max-w-xs"
+        onChange={(e) => setName(e.currentTarget.value)}
+      />
+      <input
+        type="date"
+        placeholder="Joining date"
+        class="input input-primary w-full max-w-xs"
+        onChange={(e) => setDate(new Date(e.currentTarget.value).getTime())}
+      />
       <button
+        class="btn btn-primary"
         onClick={() => {
-          mutate({ variables: { name: "hi" } });
+          mutate({
+            variables: { name: name(), startDate: date() },
+          });
         }}
       >
         Create student
       </button>
-      <For each={data()?.students}>{(student) => <p>{student.name}</p>}</For>
+      <For each={data()?.students}>
+        {(student) => (
+          <div class="flex gap-4">
+            <p>{student.name}</p>
+            <p>{new Date(student.startDate).toISOString().slice(0, 10)}</p>
+          </div>
+        )}
+      </For>
     </>
   );
 }
 
 function HelloWorld() {
-  const [count, setCount] = createSignal(0);
-
   return (
     <ApolloProvider client={client}>
-      <div>Hello World!</div>
-      <p>{count()}</p>
-      <button onClick={() => setCount(count() + 1)}>Click me</button>
       <App />
     </ApolloProvider>
   );

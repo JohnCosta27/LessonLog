@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types", "@types"],
+
+    "composite": true,
+    "incremental": true,
+
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "target": "esnext",
+
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "lib": ["esnext"],
+
+    "allowJs": false,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "noErrorTruncation": true
+  },
+  "paths": {
+    "@lessonlog/global-types": [
+      "packages/graphql-types/src/index.ts"
+    ]
+  }
+}
