@@ -10,7 +10,7 @@ export namespace QueryTypes {
   export interface Student {
     id: string;
     name: string;
-    startDate: number;
+    startDate: Date;
     lessons: Array<Lesson>;
   }
 }
@@ -18,11 +18,11 @@ export namespace QueryTypes {
 export namespace MutationTypes {
   export interface Student {
     name: string;
-    startDate: Date;
+    startDate: number;
   }
   export interface Lesson {
     studentId: string;
-    date: Date;
+    date: number;
     price: number;
     summary?: string;
   }
