@@ -1,12 +1,12 @@
 {
   "name": "LessonLog",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A way to track student lessons",
+  "version": "0.0.1",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve:all": "concurrently \"pnpm --prefix apps/backend run dev \" \"pnpm --prefix apps/frontend run dev \""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "John Costa",
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
 }

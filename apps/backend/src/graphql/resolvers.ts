@@ -1,0 +1,79 @@
+import { MutationTypes, QueryTypes } from "@lessonlog/graphql-types";
+import { prisma } from "../prisma";
+
+export const resolvers = {
+  Query: {
+    async students(): Promise<Array<QueryTypes.Student>> {
+      try {
+        const students = await prisma.students.findMany({
+          include: {
+            lessons: true,
+          },
+        });
+        const returnStudents = students.map((s) => ({
+          id: s.id,
+          name: s.name,
+          startDate: s.startDate.getTime(),
+          lessons: s.lessons.map(l => ({
+            id: l.id,
+            studentId: l.studentId,
+            date: l.date,
+            price: l.price,
+            summary: l.summary
+          })),
+        }));
+
+        return returnStudents;
+      } catch (e) {
+        console.log(e);
+        return [];
+      }
+    },
+  },
+  Mutation: {
+    async addStudent(
+      _: unknown,
+      { name, startDate }: MutationTypes.Student
+    ): Promise<{ name: string; startDate: Date } | undefined> {
+      try {
+        const newStudent = await prisma.students.create({
+          data: {
+            name: name,
+            startDate: new Date(startDate),
+          },
+        });
+        return newStudent;
+      } catch (e) {
+        return undefined;
+      }
+    },
+    async addLesson(
+      _: unknown,
+      { studentId, date, price, summary }: MutationTypes.Lesson
+    ): Promise<
+      | QueryTypes.Lesson
+      | undefined
+    > {
+      try {
+        const newLesson = await prisma.lessons.create({
+          data: {
+            studentId: studentId,
+            date: new Date(date),
+            price: price,
+            summary: summary,
+          },
+        });
+        return {
+          id: newLesson.id,
+          studentId: newLesson.studentId,
+          date: newLesson.date,
+          price: newLesson.price,
+          summary: newLesson.summary!,
+        };
+      } catch (e) {
+        console.log(e);
+        return undefined;
+      }
+    },
+  },
+};
