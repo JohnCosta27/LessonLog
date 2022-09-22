@@ -10,20 +10,7 @@ export const resolvers = {
             lessons: true,
           },
         });
-        const returnStudents = students.map((s) => ({
-          id: s.id,
-          name: s.name,
-          startDate: s.startDate.getTime(),
-          lessons: s.lessons.map(l => ({
-            id: l.id,
-            studentId: l.studentId,
-            date: l.date,
-            price: l.price,
-            summary: l.summary
-          })),
-        }));
-
-        return returnStudents;
+        return students;
       } catch (e) {
         console.log(e);
         return [];
