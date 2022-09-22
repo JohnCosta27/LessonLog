@@ -1,18 +1,28 @@
 import { QueryTypes } from "@lessonlog/graphql-types";
 import { Component, For } from "solid-js";
-import { Card } from "../../ui/Card";
-import { Student } from "./Student";
+import { List, Card, ListItem } from "../../ui";
 
 export interface StudentListProps {
   students: Array<QueryTypes.Student>;
 }
 
-export const StudentList: Component<StudentListProps> = (props) => {
-  return (
-    <Card title="Students">
-      <div class="w-full h-full flex flex-col gap-4 rounded-md overflow-auto">
-        <For each={props.students}>{(student) => <Student {...student} />}</For>
-      </div>
-    </Card>
-  );
-};
+/*
+ * Component responsible for rendering a list of students
+ * on the main page of the application.
+ */
+export const StudentList: Component<StudentListProps> = (props) => (
+  <Card title="Students">
+    <List>
+      <For each={props.students}>
+        {(student) => (
+          <ListItem>
+            <p>{student.name}</p>
+            <p class="text-accent text-xs">
+              {new Date(student.startDate).toISOString().slice(0, 10)}
+            </p>
+          </ListItem>
+        )}
+      </For>
+    </List>
+  </Card>
+);

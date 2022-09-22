@@ -12,14 +12,14 @@ const App: Component = () => {
 
   return (
     <div class="flex w-full h-screen">
-      <div class="w-full h-full flex flex-col gap-4">
+      <div class="basis-1/3 w-full h-full flex flex-col gap-4">
         <div class="w-full h-full p-4 overflow-auto">
           <StudentList students={data()?.students || []} />
         </div>
         <div class="w-full h-full p-4">
         </div>
       </div>
-      <div class="w-full"></div>
+      <div class="basis-2/3 w-full"></div>
     </div>
   );
 };
