@@ -6,6 +6,7 @@ import { QueryTypes } from "@lessonlog/graphql-types";
 import { StudentList } from "./pages/Students/StudentList";
 import "./index.css";
 import { LessonList } from "./pages/Lessons/LessonList";
+import { Card } from "./ui";
 
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
@@ -14,14 +15,18 @@ const App: Component = () => {
   return (
     <div class="flex w-full h-screen">
       <div class="basis-1/3 w-full h-full flex flex-col gap-4">
-        <div class="w-full h-full p-4 overflow-auto">
+        <div class="w-full h-full p-4 pr-2 overflow-auto">
           <StudentList students={data()?.students || []} />
         </div>
-        <div class="w-full h-full p-4 overflow-auto">
+        <div class="w-full h-full p-4 pr-2 overflow-auto">
           <LessonList lessons={lessons()?.lessons || []} />
         </div>
       </div>
-      <div class="basis-2/3 w-full"></div>
+      <div class="basis-2/3 w-full p-4 pl-2">
+        <Card title="Action">
+          <></>
+        </Card>
+      </div>
     </div>
   );
 };
