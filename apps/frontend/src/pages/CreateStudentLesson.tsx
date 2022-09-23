@@ -37,12 +37,12 @@ export const CreateStudentLesson: Component = () => {
       </select>
       <input
         type="text"
-        class="input input-secondary"
+        class="input input-secondary w-full"
         onChange={(e) => setSummary(e.currentTarget.value)}
       />
       <input
         type="date"
-        class="input input-secondary"
+        class="input input-secondary w-full"
         onChange={(e) => setLessonTime(new Date(e.currentTarget.value).getTime())}
       />
       <button

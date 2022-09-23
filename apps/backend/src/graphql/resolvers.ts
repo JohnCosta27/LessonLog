@@ -29,7 +29,6 @@ export const resolvers = {
         console.log(e);
         return [];
       });
-      console.log(lessons);
       return lessons;
     },
   },

@@ -7,6 +7,8 @@ import { StudentList } from "./pages/Students/StudentList";
 import "./index.css";
 import { LessonList } from "./pages/Lessons/LessonList";
 import { Card } from "./ui";
+import { CreateStudent } from "./pages/CreateStudent";
+import { CreateStudentLesson } from "./pages/CreateStudentLesson";
 
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
@@ -24,7 +26,8 @@ const App: Component = () => {
       </div>
       <div class="basis-2/3 w-full p-4 pl-2">
         <Card title="Action">
-          <></>
+          <CreateStudent />
+          <CreateStudentLesson />
         </Card>
       </div>
     </div>
