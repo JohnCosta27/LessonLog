@@ -16,6 +16,22 @@ export const resolvers = {
         return [];
       }
     },
+    async lessons(): Promise<Array<QueryTypes.Lesson>> {
+      const lessons = await prisma.lessons.findMany({
+        include: {
+          student: {
+            select: {
+              name: true,
+            }
+          }
+        }
+      }).catch((e) => {
+        console.log(e);
+        return [];
+      });
+      console.log(lessons);
+      return lessons;
+    },
   },
   Mutation: {
     async addStudent(
@@ -37,10 +53,7 @@ export const resolvers = {
     async addLesson(
       _: unknown,
       { studentId, date, price, summary }: MutationTypes.Lesson
-    ): Promise<
-      | QueryTypes.Lesson
-      | undefined
-    > {
+    ): Promise<QueryTypes.Lesson | undefined> {
       try {
         const newLesson = await prisma.lessons.create({
           data: {

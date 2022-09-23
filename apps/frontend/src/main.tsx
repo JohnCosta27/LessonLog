@@ -1,14 +1,19 @@
 import { ApolloProvider, createQuery } from "@merged/solid-apollo";
-import { Component } from "solid-js";
+import { Component, createEffect } from "solid-js";
 import { render } from "solid-js/web";
-import { client, studentQuery } from "./graphql";
+import { client, lessonQuery, studentQuery } from "./graphql";
 import { QueryTypes } from "@lessonlog/graphql-types";
-import "./index.css";
 import { StudentList } from "./pages/Students/StudentList";
-import { CreateStudent } from "./pages/CreateStudent";
+import "./index.css";
+import { LessonList } from "./pages/Lessons/LessonList";
 
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
+  const lessons = createQuery<{ lessons: QueryTypes.Lesson[] }>(lessonQuery);
+
+  createEffect(() => {
+    console.log(lessons());
+  });
 
   return (
     <div class="flex w-full h-screen">
@@ -16,7 +21,8 @@ const App: Component = () => {
         <div class="w-full h-full p-4 overflow-auto">
           <StudentList students={data()?.students || []} />
         </div>
-        <div class="w-full h-full p-4">
+        <div class="w-full h-full p-4 overflow-auto">
+          <LessonList lessons={lessons()?.lessons || []} />
         </div>
       </div>
       <div class="basis-2/3 w-full"></div>

@@ -7,15 +7,20 @@ export const typeDefs = gql`
     startDate: Float!
     lessons: [Lesson!]!
   }
+  type LessonStudent {
+    name: String!
+  }
   type Lesson {
     id: String!
     studentId: String!
+    student: LessonStudent
     date: Float!
     price: Float!
     summary: String
   }
   type Query {
     students: [Student!]!
+    lessons: [Lesson!]!
   }
 
   type Mutation {

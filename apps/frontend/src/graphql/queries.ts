@@ -15,3 +15,18 @@ export const studentQuery = gql`
     }
   }
 `;
+
+export const lessonQuery = gql`
+  query Lessons {
+    lessons {
+      id
+      studentId
+      date
+      price
+      summary
+      student {
+        name
+      }
+    }
+  }
+`;

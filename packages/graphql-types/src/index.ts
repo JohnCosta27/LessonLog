@@ -3,6 +3,7 @@ export namespace QueryTypes {
   export interface Lesson {
     id: string;
     studentId: string;
+    student?: Pick<Student, 'name'>;
     date: Date;
     price: number;
     summary: string | null;
