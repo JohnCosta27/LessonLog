@@ -14,11 +14,11 @@ const App: Component = () => {
 
   return (
     <div class="flex w-full h-screen">
-      <div class="basis-1/3 w-full h-full flex flex-col gap-4">
-        <div class="w-full h-full p-4 pr-2 overflow-auto">
+      <div class="basis-1/3 w-full h-full flex flex-col">
+        <div class="w-full h-full p-4 pr-2 pb-2 overflow-auto">
           <StudentList students={data()?.students || []} />
         </div>
-        <div class="w-full h-full p-4 pr-2 overflow-auto">
+        <div class="w-full h-full p-4 pr-2 pt-2 overflow-auto">
           <LessonList lessons={lessons()?.lessons || []} />
         </div>
       </div>
