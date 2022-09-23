@@ -1,5 +1,5 @@
 import { ApolloProvider, createQuery } from "@merged/solid-apollo";
-import { Component, createEffect } from "solid-js";
+import { Component } from "solid-js";
 import { render } from "solid-js/web";
 import { client, lessonQuery, studentQuery } from "./graphql";
 import { QueryTypes } from "@lessonlog/graphql-types";
@@ -10,10 +10,6 @@ import { LessonList } from "./pages/Lessons/LessonList";
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
   const lessons = createQuery<{ lessons: QueryTypes.Lesson[] }>(lessonQuery);
-
-  createEffect(() => {
-    console.log(lessons());
-  });
 
   return (
     <div class="flex w-full h-screen">
