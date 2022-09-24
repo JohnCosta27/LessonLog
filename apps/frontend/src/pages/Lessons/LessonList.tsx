@@ -1,8 +1,7 @@
-import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
-import { createMutation } from '@merged/solid-apollo';
+import { QueryTypes } from '@lessonlog/graphql-types';
 import { Component, For } from 'solid-js';
-import { lessonQuery, lessonUpdateMutation } from '../../graphql';
 import { List, Card, ListItem } from '../../ui';
+import { LessonListItem } from './LessonListItem';
 
 export interface LessonListProps {
   lessons: Array<QueryTypes.Lesson>;
@@ -16,51 +15,20 @@ export interface LessonListProps {
  * most other array functions which return a new reference to a new array.
  * This took me forever to work out.
  */
-export const LessonList: Component<LessonListProps> = (props) => {
-  const [mutateUpdateLesson] = createMutation<QueryTypes.Lesson, MutationTypes.UpdateLesson>(lessonUpdateMutation, {
-    refetchQueries: [
-      {
-        query: lessonQuery,
-      }
-    ]
-  });
-
-  return (
-    <Card title="Lessons">
-      <List>
-        <For
-          each={[...props.lessons].sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-          )}
-        >
-          {(lesson) => (
-            <ListItem>
-              <div class="flex justify-between">
-                <div class="flex flex-col">
-                  <p>{lesson.student?.name}</p>
-                  <p>{lesson.summary}</p>
-                  <p class="text-accent text-xs">
-                    {new Date(lesson.date).toUTCString()}
-                  </p>
-                </div>
-                <div class="flex justify-end">
-                  <button
-                    class={`btn ${lesson.paid ? 'btn-success' : 'btn-error'}`}
-                    onClick={() => mutateUpdateLesson({
-                      variables: {
-                        lessonId: lesson.id,
-                        paid: !lesson.paid
-                      }
-                    })}
-                  >
-                    Paid?
-                  </button>
-                </div>
-              </div>
-            </ListItem>
-          )}
-        </For>
-      </List>
-    </Card>
-  );
-};
+export const LessonList: Component<LessonListProps> = (props) => (
+  <Card title="Lessons">
+    <List>
+      <For
+        each={[...props.lessons].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        )}
+      >
+        {(lesson) => (
+          <ListItem>
+            <LessonListItem lesson={lesson} />
+          </ListItem>
+        )}
+      </For>
+    </List>
+  </Card>
+);
