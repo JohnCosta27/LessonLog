@@ -19,28 +19,29 @@ export const CreateStudent: Component = () => {
   );
 
   return (
-    <div class="flex">
+    <div class="w-full flex flex-col gap-2">
+      <h2 class="text-2xl">Create Student</h2>
       <input
         type="text"
-        placeholder="Type here"
-        class="input input-secondary w-full max-w-xs"
+        placeholder="Student name..."
+        class="input input-secondary w-full"
         onChange={(e) => setName(e.currentTarget.value)}
       />
       <input
         type="date"
         placeholder="Joining date"
-        class="input input-secondary w-full max-w-xs"
+        class="input input-secondary w-full"
         onChange={(e) => setDate(new Date(e.currentTarget.value).getTime())}
       />
       <button
-        class="btn btn-primary"
+        class="btn btn-primary w-full"
         onClick={() => {
           mutate({
             variables: { name: name(), startDate: date() },
           });
         }}
       >
-        Create student
+        Create Student
       </button>
     </div>
   );

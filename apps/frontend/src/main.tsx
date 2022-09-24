@@ -26,8 +26,15 @@ const App: Component = () => {
       </div>
       <div class="basis-2/3 w-full p-4 pl-2">
         <Card title="Action">
-          <CreateStudent />
-          <CreateStudentLesson />
+          <div class="flex w-full">
+            <div class="w-full p-4">
+              <CreateStudent />
+            </div>
+            <div class="divider lg:divider-horizontal" />
+            <div class="w-full p-4">
+              <CreateStudentLesson />
+            </div>
+          </div>
         </Card>
       </div>
     </div>

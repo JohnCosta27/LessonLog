@@ -21,9 +21,10 @@ export const CreateStudentLesson: Component = () => {
   });
 
   return (
-    <div class="flex">
+    <div class="flex flex-col w-full gap-2">
+      <h2 class="text-2xl">Create Lesson</h2>
       <select
-        class="select select-secondary w-full max-w-xs"
+        class="select select-secondary w-full"
         onChange={(e) => {
           setStudent(e.currentTarget.value);
         }}
