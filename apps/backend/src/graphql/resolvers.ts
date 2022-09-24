@@ -71,5 +71,25 @@ export const resolvers = {
         return undefined;
       }
     },
+    async updateLesson(
+      _: unknown,
+      {lessonId, ...data}: MutationTypes.UpdateLesson
+    ): Promise<QueryTypes.Lesson | undefined> {
+      const updateLesson = await prisma.lessons
+        .update({
+          where: {
+            id: lessonId,
+          },
+          data: {
+            ...data,
+            date: data.date ? new Date(data.date) : undefined,
+          },
+        })
+        .catch((e) => {
+          console.log(e);
+          return undefined;
+        });
+      return updateLesson;
+    },
   },
 };

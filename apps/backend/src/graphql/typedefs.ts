@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-core";
+import { gql } from 'apollo-server-core';
 
 export const typeDefs = gql`
   type Student {
@@ -31,6 +31,15 @@ export const typeDefs = gql`
       date: Float!
       price: Float!
       summary: String
+      paid: Boolean
+    ): Lesson
+    updateLesson(
+      lessonId: String!
+      studentId: String
+      date: Float
+      price: Float
+      summary: String
+      paid: Boolean
     ): Lesson
   }
 `;

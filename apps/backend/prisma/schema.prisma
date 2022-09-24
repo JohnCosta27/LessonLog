@@ -24,6 +24,6 @@ model Lessons {
   student   Students @relation(fields: [studentId], references: [id])
   date      DateTime @db.Timestamp()
   price     Float
-  paid      Boolean
+  paid      Boolean  @default(false)
   summary   String?
 }

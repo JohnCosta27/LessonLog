@@ -29,4 +29,7 @@ export namespace MutationTypes {
     paid?: boolean;
     summary?: string;
   }
+  export type UpdateLesson = Partial<Lesson> & {
+    lessonId: string;
+  };
 }

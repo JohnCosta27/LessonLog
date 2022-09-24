@@ -2,6 +2,7 @@ import { Component, createSignal } from "solid-js";
 import { createMutation } from "@merged/solid-apollo";
 import { studentMutation, studentQuery } from "../graphql";
 import { MutationTypes, QueryTypes } from "@lessonlog/graphql-types";
+import { Temporal } from "@js-temporal/polyfill";
 
 export const CreateStudent: Component = () => {
   const [name, setName] = createSignal("");
@@ -29,6 +30,7 @@ export const CreateStudent: Component = () => {
       />
       <input
         type="date"
+        value={Temporal.Now.plainDateISO().toString()}
         placeholder="Joining date"
         class="input input-secondary w-full"
         onChange={(e) => setDate(new Date(e.currentTarget.value).getTime())}
