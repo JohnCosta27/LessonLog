@@ -6,6 +6,7 @@ export namespace QueryTypes {
     student?: Pick<Student, 'name'>;
     date: Date;
     price: number;
+    paid: boolean;
     summary: string | null;
   }
   export interface Student {
@@ -25,6 +26,7 @@ export namespace MutationTypes {
     studentId: string;
     date: number;
     price: number;
+    paid?: boolean;
     summary?: string;
   }
 }

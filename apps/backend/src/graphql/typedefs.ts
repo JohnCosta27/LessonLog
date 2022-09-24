@@ -16,6 +16,7 @@ export const typeDefs = gql`
     student: LessonStudent
     date: Float!
     price: Float!
+    paid: Boolean!
     summary: String
   }
   type Query {

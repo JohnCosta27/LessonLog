@@ -39,6 +39,7 @@ importers:
     specifiers:
       '@apollo/client': ^3.6.9
       '@babel/core': ^7.19.1
+      '@js-temporal/polyfill': ^0.4.2
       '@lessonlog/graphql-types': workspace:*
       '@merged/solid-apollo': ^1.7.1
       '@solidjs/router': ^0.4.3
@@ -53,6 +54,7 @@ importers:
       vite: ^3.1.0
       vite-plugin-solid: ^2.3.0
     dependencies:
+      '@js-temporal/polyfill': 0.4.2
       '@solidjs/router': 0.4.3_solid-js@1.5.4
       solid-js: 1.5.4
     devDependencies:
@@ -671,6 +673,14 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@js-temporal/polyfill/0.4.2:
+    resolution: {integrity: sha512-c85vRxyqnJaXKyf4tvYij8jwiVIZhNLYDI9C4LLuOwVEHf4HUqGg07BBn70Le71W193QT/vmKg3jPUyQxJRHKQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      jsbi: 4.3.0
+      tslib: 2.4.0
+    dev: false
 
   /@merged/solid-apollo/1.7.1_5l6o6unyf3b7o2cvo7fnbyb6cy:
     resolution: {integrity: sha512-tahQvobTBjPQJKvNOllABdCru05wy/DI0zSieFIRfwu5/b9H9IxkIEQGErkFbZN4pJrTSEJYeDj/bu0w07+0Zg==}
@@ -1997,6 +2007,10 @@ packages:
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
     dev: true
+
+  /jsbi/4.3.0:
+    resolution: {integrity: sha512-SnZNcinB4RIcnEyZqFPdGPVgrg2AcnykiBy0sHVJQKHYeaLUvi3Exj+iaPpLnFVkDPZIV4U0yvgC9/R4uEAZ9g==}
+    dev: false
 
   /jsesc/2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}

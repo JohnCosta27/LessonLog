@@ -1,5 +1,5 @@
-import { MutationTypes, QueryTypes } from "@lessonlog/graphql-types";
-import { prisma } from "../prisma";
+import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
+import { prisma } from '../prisma';
 
 export const resolvers = {
   Query: {
@@ -17,18 +17,20 @@ export const resolvers = {
       }
     },
     async lessons(): Promise<Array<QueryTypes.Lesson>> {
-      const lessons = await prisma.lessons.findMany({
-        include: {
-          student: {
-            select: {
-              name: true,
-            }
-          }
-        }
-      }).catch((e) => {
-        console.log(e);
-        return [];
-      });
+      const lessons = await prisma.lessons
+        .findMany({
+          include: {
+            student: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        })
+        .catch((e) => {
+          console.log(e);
+          return [];
+        });
       return lessons;
     },
   },
@@ -51,7 +53,7 @@ export const resolvers = {
     },
     async addLesson(
       _: unknown,
-      { studentId, date, price, summary }: MutationTypes.Lesson
+      { studentId, date, price, paid, summary }: MutationTypes.Lesson
     ): Promise<QueryTypes.Lesson | undefined> {
       try {
         const newLesson = await prisma.lessons.create({
@@ -59,16 +61,11 @@ export const resolvers = {
             studentId: studentId,
             date: new Date(date),
             price: price,
+            paid: !!paid,
             summary: summary,
           },
         });
-        return {
-          id: newLesson.id,
-          studentId: newLesson.studentId,
-          date: newLesson.date,
-          price: newLesson.price,
-          summary: newLesson.summary!,
-        };
+        return newLesson;
       } catch (e) {
         console.log(e);
         return undefined;

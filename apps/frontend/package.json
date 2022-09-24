@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@lessonlog/graphql-types": "workspace:*",
     "@apollo/client": "^3.6.9",
     "@babel/core": "^7.19.1",
+    "@lessonlog/graphql-types": "workspace:*",
     "@merged/solid-apollo": "^1.7.1",
     "autoprefixer": "^10.4.11",
     "babel-preset-solid": "^1.5.4",
@@ -24,6 +24,7 @@
     "vite-plugin-solid": "^2.3.0"
   },
   "dependencies": {
+    "@js-temporal/polyfill": "^0.4.2",
     "@solidjs/router": "^0.4.3",
     "solid-js": "^1.5.4"
   }

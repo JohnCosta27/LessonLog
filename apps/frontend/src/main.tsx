@@ -1,14 +1,14 @@
-import { ApolloProvider, createQuery } from "@merged/solid-apollo";
-import { Component } from "solid-js";
-import { render } from "solid-js/web";
-import { client, lessonQuery, studentQuery } from "./graphql";
-import { QueryTypes } from "@lessonlog/graphql-types";
-import { StudentList } from "./pages/Students/StudentList";
-import "./index.css";
-import { LessonList } from "./pages/Lessons/LessonList";
-import { Card } from "./ui";
-import { CreateStudent } from "./pages/CreateStudent";
-import { CreateStudentLesson } from "./pages/CreateStudentLesson";
+import { ApolloProvider, createQuery } from '@merged/solid-apollo';
+import { Component } from 'solid-js';
+import { render } from 'solid-js/web';
+import { client, lessonQuery, studentQuery } from './graphql';
+import { QueryTypes } from '@lessonlog/graphql-types';
+import { StudentList } from './pages/Students/StudentList';
+import './index.css';
+import { LessonList } from './pages/Lessons/LessonList';
+import { Card } from './ui';
+import { CreateStudent } from './pages/CreateStudent';
+import { CreateStudentLesson } from './pages/CreateStudentLesson';
 
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
@@ -49,4 +49,4 @@ function HelloWorld() {
   );
 }
 
-render(() => <HelloWorld />, document.getElementById("root") as HTMLElement);
+render(() => <HelloWorld />, document.getElementById('root') as HTMLElement);

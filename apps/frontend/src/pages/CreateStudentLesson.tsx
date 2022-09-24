@@ -1,12 +1,13 @@
-import { Component, For, createSignal } from "solid-js";
-import { MutationTypes, QueryTypes } from "@lessonlog/graphql-types";
-import { createMutation, createQuery } from "@merged/solid-apollo";
-import { lessonMutation, studentQuery } from "../graphql";
+import { Component, For, createSignal } from 'solid-js';
+import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
+import { createMutation, createQuery } from '@merged/solid-apollo';
+import { lessonMutation, lessonQuery, studentQuery } from '../graphql';
+import { Temporal } from '@js-temporal/polyfill';
 
 export const CreateStudentLesson: Component = () => {
-  const [student, setStudent] = createSignal("");
+  const [student, setStudent] = createSignal('');
   const [lessonTime, setLessonTime] = createSignal(new Date().getTime());
-  const [summary, setSummary] = createSignal("");
+  const [summary, setSummary] = createSignal('');
 
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
   const [mutateLesson] = createMutation<
@@ -15,7 +16,7 @@ export const CreateStudentLesson: Component = () => {
   >(lessonMutation, {
     refetchQueries: [
       {
-        query: studentQuery,
+        query: lessonQuery,
       },
     ],
   });
@@ -42,9 +43,13 @@ export const CreateStudentLesson: Component = () => {
         onChange={(e) => setSummary(e.currentTarget.value)}
       />
       <input
-        type="date"
+        type="datetime-local"
+        step={15 * 60}
+        value={`${Temporal.Now.plainDateISO()}T16:00`}
         class="input input-secondary w-full"
-        onChange={(e) => setLessonTime(new Date(e.currentTarget.value).getTime())}
+        onChange={(e) =>
+          setLessonTime(new Date(e.currentTarget.value).getTime())
+        }
       />
       <button
         class="btn btn-primary"
