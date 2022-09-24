@@ -1,12 +1,19 @@
 import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
 import { createMutation } from '@merged/solid-apollo';
-import { Component, createSignal } from 'solid-js';
+import { Component, createSignal, onCleanup, onMount } from 'solid-js';
 import { lessonQuery, lessonUpdateMutation } from '../../graphql';
 
 export interface LessonListItemProps {
   lesson: QueryTypes.Lesson;
 }
 
+/*
+ * LessonListItem holds some logic, hence why it is seperated,
+ * This component is not only responsible for displaying a lesson,
+ * but also allowing the user to change it in a convenient and easy way.
+ * User can:
+ * Change the lesson summary, change the paid state and change the data (TODO). 
+ */
 export const LessonListItem: Component<LessonListItemProps> = (props) => {
   const { lesson } = props;
 
@@ -23,8 +30,10 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
     ],
   });
 
-  const updateSummaryMutation = () => {
-    if (updateSummary() !== lesson.summary) {
+  const updateSummaryMutation = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && updateSummary() !== lesson.summary) {
+      e.preventDefault();
+      e.stopPropagation();
       mutateUpdateLesson({
         variables: {
           lessonId: lesson.id,
@@ -34,13 +43,12 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
     }
   };
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      // To stop break in paragraph
-      e.preventDefault();
-      e.stopPropagation();
-      updateSummaryMutation();
-    }
+  onMount(() => {
+    window.addEventListener('keydown', updateSummaryMutation);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener('keydown', updateSummaryMutation);
   });
 
   return (
@@ -51,7 +59,9 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
           contentEditable={true}
           onInput={(e) => setUpdateSummary(e.currentTarget.innerText)}
           class={`focus:${
-            updateSummary() === lesson.summary ? 'outline-success' : 'outline-warning'
+            updateSummary() === lesson.summary
+              ? 'outline-success'
+              : 'outline-warning'
           } outline-none rounded-sm`}
         >
           {lesson.summary}
