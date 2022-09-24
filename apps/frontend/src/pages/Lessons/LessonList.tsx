@@ -1,5 +1,5 @@
 import { QueryTypes } from '@lessonlog/graphql-types';
-import { Component, For } from 'solid-js';
+import { Component, createEffect, createSignal, For } from 'solid-js';
 import { List, Card, ListItem } from '../../ui';
 import { LessonListItem } from './LessonListItem';
 
@@ -15,20 +15,44 @@ export interface LessonListProps {
  * most other array functions which return a new reference to a new array.
  * This took me forever to work out.
  */
-export const LessonList: Component<LessonListProps> = (props) => (
-  <Card title="Lessons">
-    <List>
-      <For
-        each={[...props.lessons].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )}
-      >
-        {(lesson) => (
-          <ListItem>
-            <LessonListItem lesson={lesson} />
-          </ListItem>
-        )}
-      </For>
-    </List>
-  </Card>
-);
+export const LessonList: Component<LessonListProps> = (props) => {
+  const [search, setSearch] = createSignal('');
+  const [filteredLessons, setFilteredLessons] = createSignal<
+    QueryTypes.Lesson[]
+  >(props.lessons);
+
+  createEffect(() => {
+    setFilteredLessons(
+      [...props.lessons]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .filter((lesson) => {
+          const s = search().toLowerCase();
+          const date = new Date(lesson.date).toLocaleString();
+          return (
+            lesson.summary?.toLowerCase().includes(s) ||
+            lesson.student?.name.toLowerCase().includes(s) || 
+            date.includes(s)
+          );
+        })
+    );
+  });
+
+  return (
+    <Card
+      title="Lessons"
+      searchable={true}
+      search={search()}
+      setSearch={setSearch}
+    >
+      <List>
+        <For each={filteredLessons()}>
+          {(lesson) => (
+            <ListItem>
+              <LessonListItem lesson={lesson} />
+            </ListItem>
+          )}
+        </For>
+      </List>
+    </Card>
+  );
+};

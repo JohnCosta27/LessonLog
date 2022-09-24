@@ -25,7 +25,7 @@ const App: Component = () => {
         </div>
       </div>
       <div class="basis-2/3 w-full p-4 pl-2">
-        <Card title="Action">
+        <Card title="Action" searchable={false}>
           <div class="flex w-full">
             <div class="w-full p-4">
               <CreateStudent />

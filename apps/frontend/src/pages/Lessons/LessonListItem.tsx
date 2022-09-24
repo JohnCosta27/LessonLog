@@ -66,7 +66,7 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
         >
           {lesson.summary}
         </p>
-        <p class="text-accent text-xs">{new Date(lesson.date).toUTCString()}</p>
+        <p class="text-accent text-xs">{new Date(lesson.date).toLocaleString()}</p>
       </div>
       <div class="flex justify-end">
         <button
