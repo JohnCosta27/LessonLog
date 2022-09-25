@@ -80,7 +80,7 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
             })
           }
         >
-          Paid?
+          {lesson.paid ? 'Paid!' : 'Paid?'}
         </button>
       </div>
     </div>

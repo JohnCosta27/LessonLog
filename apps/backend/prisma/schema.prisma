@@ -12,10 +12,11 @@ datasource db {
 }
 
 model Students {
-  id        String    @id @default(uuid())
+  id        String      @id @default(uuid())
   name      String
-  startDate DateTime  @db.Timestamp()
+  startDate DateTime    @db.Timestamp()
   lessons   Lessons[]
+  hourBanks HourBanks[]
 }
 
 model Lessons {
@@ -25,5 +26,24 @@ model Lessons {
   date      DateTime @db.Timestamp()
   price     Float
   paid      Boolean  @default(false)
+  // Nullable foreign key
+  hourBankId String?
+  hourBank HourBanks? @relation(fields: [hourBankId], references: [id])
   summary   String?
+}
+
+// This is where hours of any kind are stores.
+// Some parents pay ahead of time with a bank of lessons,
+// others pay in the moment.
+
+model HourBanks {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Students @relation(fields: [studentId], references: [id])
+  date      DateTime @db.Timestamp()
+  hours     Int
+  // Denormalised, it's just easier to check this value than to count foreign keys.
+  hoursLeft Int
+  // This starts the same as hours, this would be done in API.
+  lessons Lessons[]
 }

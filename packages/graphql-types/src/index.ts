@@ -27,6 +27,7 @@ export namespace MutationTypes {
     date: number;
     price: number;
     paid?: boolean;
+    hourBankId?: string;
     summary?: string;
   }
   export type UpdateLesson = Partial<Lesson> & {
