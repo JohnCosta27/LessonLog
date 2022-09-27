@@ -8,6 +8,7 @@ export const resolvers = {
         const students = await prisma.students.findMany({
           include: {
             lessons: true,
+            hourBanks: true,
           },
         });
         return students;

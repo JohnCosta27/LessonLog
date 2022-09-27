@@ -13,6 +13,13 @@ export const studentQuery = gql`
         paid
         summary
       }
+      hourBanks {
+        id
+        studentId
+        date
+        hours
+        hoursLeft
+      }
     }
   }
 `;

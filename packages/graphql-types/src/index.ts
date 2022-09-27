@@ -14,6 +14,14 @@ export namespace QueryTypes {
     name: string;
     startDate: Date;
     lessons: Array<Lesson>;
+    hourBanks: Array<HourBank>;
+  }
+  export interface HourBank {
+    id: string;
+    studentId: string;
+    date: Date;
+    hours: number;
+    hoursLeft: number;
   }
 }
 

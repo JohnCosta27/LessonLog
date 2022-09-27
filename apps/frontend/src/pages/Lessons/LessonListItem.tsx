@@ -1,7 +1,7 @@
 import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
 import { createMutation } from '@merged/solid-apollo';
 import { Component, createSignal, onCleanup, onMount } from 'solid-js';
-import { lessonQuery, lessonUpdateMutation } from '../../graphql';
+import { lessonQuery, lessonUpdateMutation, studentQuery } from '../../graphql';
 
 export interface LessonListItemProps {
   lesson: QueryTypes.Lesson;
@@ -12,7 +12,7 @@ export interface LessonListItemProps {
  * This component is not only responsible for displaying a lesson,
  * but also allowing the user to change it in a convenient and easy way.
  * User can:
- * Change the lesson summary, change the paid state and change the data (TODO). 
+ * Change the lesson summary, change the paid state and change the data (TODO).
  */
 export const LessonListItem: Component<LessonListItemProps> = (props) => {
   const { lesson } = props;
@@ -26,6 +26,9 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
     refetchQueries: [
       {
         query: lessonQuery,
+      },
+      {
+        query: studentQuery,
       },
     ],
   });
@@ -66,7 +69,9 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
         >
           {lesson.summary}
         </p>
-        <p class="text-accent text-xs">{new Date(lesson.date).toLocaleString()}</p>
+        <p class="text-accent text-xs">
+          {new Date(lesson.date).toLocaleString()}
+        </p>
       </div>
       <div class="flex justify-end">
         <button

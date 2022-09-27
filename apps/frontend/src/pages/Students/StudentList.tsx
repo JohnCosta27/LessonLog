@@ -1,6 +1,7 @@
 import { QueryTypes } from '@lessonlog/graphql-types';
 import { Component, createSignal, For } from 'solid-js';
 import { List, Card, ListItem } from '../../ui';
+import { StudentListItem } from './StudentListItem';
 
 export interface StudentListProps {
   students: Array<QueryTypes.Student>;
@@ -23,10 +24,12 @@ export const StudentList: Component<StudentListProps> = (props) => {
         <For each={props.students}>
           {(student) => (
             <ListItem>
-              <p>{student.name}</p>
-              <p class="text-accent text-xs">
-                {new Date(student.startDate).toISOString().slice(0, 10)}
-              </p>
+              <StudentListItem
+                name={student.name}
+                startDate={new Date(student.startDate)}
+                lessons={student.lessons}
+                hourBanks={student.hourBanks}
+              />
             </ListItem>
           )}
         </For>
