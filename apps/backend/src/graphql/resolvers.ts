@@ -72,6 +72,25 @@ export const resolvers = {
         return undefined;
       }
     },
+    async addHourBank(
+      _: unknown,
+      { studentId, date, hours }: MutationTypes.HourBank
+    ): Promise<QueryTypes.HourBank | undefined> {
+      try {
+        const newHourBank = await prisma.hourBanks.create({
+          data: {
+            studentId: studentId,
+            date: new Date(date),
+            hours: hours,
+            hoursLeft: hours,
+          },
+        });
+        return newHourBank;
+      } catch (e) {
+        console.log(e);
+        return undefined;
+      }
+    },
     //TODO: Better error handling.
     // Return error message instead of undefined.
     async updateLesson(

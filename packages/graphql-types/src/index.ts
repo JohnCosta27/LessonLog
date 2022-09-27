@@ -41,4 +41,9 @@ export namespace MutationTypes {
   export type UpdateLesson = Partial<Lesson> & {
     lessonId: string;
   };
+  export interface HourBank {
+    studentId: string;
+    date: number;
+    hours: number;
+  }
 }

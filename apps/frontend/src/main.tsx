@@ -9,6 +9,7 @@ import { LessonList } from './pages/Lessons/LessonList';
 import { Card } from './ui';
 import { CreateStudent } from './pages/CreateStudent';
 import { CreateStudentLesson } from './pages/CreateStudentLesson';
+import { CreateHourBank } from './pages/CreateHourBank';
 
 const App: Component = () => {
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
@@ -26,13 +27,19 @@ const App: Component = () => {
       </div>
       <div class="basis-2/3 w-full p-4 pl-2">
         <Card title="Action" searchable={false}>
-          <div class="flex w-full">
-            <div class="w-full p-4">
-              <CreateStudent />
+          <div class="w-full flex flex-col">
+            <div class="flex justify-between">
+              <div class="w-full p-4">
+                <CreateStudent />
+              </div>
+              <div class="divider divider-horizontal" />
+              <div class="w-full p-4">
+                <CreateStudentLesson />
+              </div>
             </div>
-            <div class="divider lg:divider-horizontal" />
+            <div class="divider divider-vertical" />
             <div class="w-full p-4">
-              <CreateStudentLesson />
+              <CreateHourBank students={data()?.students || []} />
             </div>
           </div>
         </Card>

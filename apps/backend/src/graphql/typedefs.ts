@@ -26,7 +26,7 @@ export const typeDefs = gql`
     date: Float!
     hours: Int!
     hoursLeft: Int!
-}
+  }
   type Query {
     students: [Student!]!
     lessons: [Lesson!]!
@@ -49,5 +49,6 @@ export const typeDefs = gql`
       summary: String
       paid: Boolean
     ): Lesson
+    addHourBank(studentId: String!, hours: Int!, date: Float!): HourBank
   }
 `;
