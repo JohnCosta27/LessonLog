@@ -11,17 +11,16 @@ export interface StudentListItemProps {
 export const StudentListItem: Component<StudentListItemProps> = (props) => {
   const { name, startDate, lessons, hourBanks } = props;
 
-  const hoursCalculation = () =>
-    hourBanks.reduce(
-      (prev, current) => prev + current.hoursLeft,
-      -lessons.length
-    );
-
-  const [availableHours, setAvailableHours] = createSignal(hoursCalculation());
+  const [availableHours, setAvailableHours] = createSignal(0);
 
   createEffect(() => {
-    setAvailableHours(hoursCalculation());
-  })
+    setAvailableHours(
+      hourBanks.reduce(
+        (prev, current) => prev + current.hoursLeft,
+        -lessons.length
+      )
+    );
+  });
 
   return (
     <div class="flex justify-between">
