@@ -7,7 +7,7 @@ import { Temporal } from '@js-temporal/polyfill';
 export const CreateStudent: Component = () => {
   const [name, setName] = createSignal('');
   const [date, setDate] = createSignal(new Date().getTime());
-  const [price, setPrice] = createSignal(0);
+  const [price, setPrice] = createSignal(40);
 
   const [mutate] = createMutation<QueryTypes.Student, MutationTypes.Student>(
     studentMutation,
@@ -38,7 +38,7 @@ export const CreateStudent: Component = () => {
       />
       <input
         type="number"
-        value={40}
+        value={price()}
         placeholder="Lesson price"
         class="input input-secondary w-full pl-4"
         onChange={(e) => setPrice(parseFloat(e.currentTarget.value))}
