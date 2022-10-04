@@ -15,6 +15,7 @@ export namespace QueryTypes {
     startDate: Date;
     lessons: Array<Lesson>;
     hourBanks: Array<HourBank>;
+    studentPrices: Array<StudentPrice>;
   }
   export interface HourBank {
     id: string;
@@ -23,12 +24,19 @@ export namespace QueryTypes {
     hours: number;
     hoursLeft: number;
   }
+  export interface StudentPrice {
+    id: string;
+    studentId: string;
+    price: number;
+    date: Date;
+  }
 }
 
 export namespace MutationTypes {
   export interface Student {
     name: string;
     startDate: number;
+    price: number;
   }
   export interface Lesson {
     studentId: string;

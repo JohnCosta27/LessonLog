@@ -1,6 +1,19 @@
 import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
 import { prisma } from '../prisma';
 
+// util function to get latest student price
+async function getLatestPrice(id: string) {
+  return await prisma.studentPrices.findMany({
+    orderBy: {
+      date: 'desc',
+    },
+    take: 1,
+    where: {
+      studentId: id,
+    }
+  });
+}
+
 export const resolvers = {
   Query: {
     async students(): Promise<Array<QueryTypes.Student>> {
@@ -9,6 +22,12 @@ export const resolvers = {
           include: {
             lessons: true,
             hourBanks: true,
+            studentPrices: {
+              orderBy: {
+                date: 'desc',
+              },
+              take: 1,
+            },
           },
         });
         return students;
@@ -38,7 +57,7 @@ export const resolvers = {
   Mutation: {
     async addStudent(
       _: unknown,
-      { name, startDate }: MutationTypes.Student
+      { name, startDate, price }: MutationTypes.Student
     ): Promise<{ name: string; startDate: Date } | undefined> {
       try {
         const newStudent = await prisma.students.create({
@@ -46,6 +65,12 @@ export const resolvers = {
             name: name,
             startDate: new Date(startDate),
           },
+        });
+        await prisma.studentPrices.create({
+          data: {
+            studentId: newStudent.id,
+            price: price,
+          }
         });
         return newStudent;
       } catch (e) {
@@ -77,12 +102,17 @@ export const resolvers = {
       { studentId, date, hours }: MutationTypes.HourBank
     ): Promise<QueryTypes.HourBank | undefined> {
       try {
+        // Find the most up to date price to create an hour bank.
+        const [latestPrice] = await getLatestPrice(studentId);
+        if (!latestPrice) return undefined;
+
         const newHourBank = await prisma.hourBanks.create({
           data: {
             studentId: studentId,
             date: new Date(date),
             hours: hours,
             hoursLeft: hours,
+            studentPriceId: latestPrice.id,
           },
         });
         return newHourBank;
@@ -126,6 +156,8 @@ export const resolvers = {
           });
           // Create a one of lesson bank;
           if (totalBanks.student.hourBanks.length === 0) {
+            const [latestPrice] = await getLatestPrice(totalBanks.student.id);
+            if (!latestPrice) return undefined;
             const oneoffBank = await prisma.hourBanks.create({
               data: {
                 studentId: totalBanks.student.id,
@@ -135,6 +167,7 @@ export const resolvers = {
                 // left (as it is a one off), otherwise if it is an unpay lesson (refund ish), we should
                 // give them an extra hour.
                 hoursLeft: data.paid ? 0 : 1,
+                studentPriceId: latestPrice.id,
               },
             });
             // This data object will then be used to update the lesson.

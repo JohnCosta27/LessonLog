@@ -7,6 +7,7 @@ export const typeDefs = gql`
     startDate: Float!
     lessons: [Lesson!]!
     hourBanks: [HourBank!]!
+    studentPrices: [StudentPrice!]!
   }
   type LessonStudent {
     name: String!
@@ -27,13 +28,19 @@ export const typeDefs = gql`
     hours: Int!
     hoursLeft: Int!
   }
+  type StudentPrice {
+    id: String!
+    studentId: String!
+    price: Float!
+    date: Float!
+  }
   type Query {
     students: [Student!]!
     lessons: [Lesson!]!
   }
 
   type Mutation {
-    addStudent(name: String!, startDate: Float!): Student
+    addStudent(name: String!, startDate: Float!, price: Float!): Student
     addLesson(
       studentId: String!
       date: Float!

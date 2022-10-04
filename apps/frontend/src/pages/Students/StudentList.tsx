@@ -29,6 +29,7 @@ export const StudentList: Component<StudentListProps> = (props) => {
                 startDate={new Date(student.startDate)}
                 lessons={student.lessons}
                 hourBanks={student.hourBanks}
+                studentPrices={student.studentPrices}
               />
             </ListItem>
           )}

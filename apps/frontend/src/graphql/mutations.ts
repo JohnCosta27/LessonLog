@@ -1,8 +1,8 @@
 import { gql } from '@merged/solid-apollo';
 
 export const studentMutation = gql`
-  mutation addStudent($name: String!, $startDate: Float!) {
-    addStudent(name: $name, startDate: $startDate) {
+  mutation addStudent($name: String!, $startDate: Float!, $price: Float!) {
+    addStudent(name: $name, startDate: $startDate, price: $price) {
       name
       startDate
     }

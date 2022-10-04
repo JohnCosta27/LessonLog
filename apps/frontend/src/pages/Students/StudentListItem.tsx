@@ -6,10 +6,11 @@ export interface StudentListItemProps {
   startDate: Date;
   lessons: QueryTypes.Lesson[];
   hourBanks: QueryTypes.HourBank[];
+  studentPrices: QueryTypes.StudentPrice[];
 }
 
 export const StudentListItem: Component<StudentListItemProps> = (props) => {
-  const { name, startDate, lessons, hourBanks } = props;
+  const { name, startDate, lessons, hourBanks, studentPrices } = props;
 
   const [availableHours, setAvailableHours] = createSignal(0);
 
@@ -32,6 +33,7 @@ export const StudentListItem: Component<StudentListItemProps> = (props) => {
       </div>
       <div class="flex flex-col align-bottom">
         <p>Available Hours: {availableHours()}</p>
+        <p>Price: £{studentPrices[0].price}</p>
       </div>
     </div>
   );

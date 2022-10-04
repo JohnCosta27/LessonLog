@@ -20,6 +20,12 @@ export const studentQuery = gql`
         hours
         hoursLeft
       }
+      studentPrices {
+        id
+        studentId
+        date
+        price
+      }
     }
   }
 `;

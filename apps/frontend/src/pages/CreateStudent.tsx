@@ -1,12 +1,13 @@
-import { Component, createSignal } from "solid-js";
-import { createMutation } from "@merged/solid-apollo";
-import { studentMutation, studentQuery } from "../graphql";
-import { MutationTypes, QueryTypes } from "@lessonlog/graphql-types";
-import { Temporal } from "@js-temporal/polyfill";
+import { Component, createSignal } from 'solid-js';
+import { createMutation } from '@merged/solid-apollo';
+import { studentMutation, studentQuery } from '../graphql';
+import { MutationTypes, QueryTypes } from '@lessonlog/graphql-types';
+import { Temporal } from '@js-temporal/polyfill';
 
 export const CreateStudent: Component = () => {
-  const [name, setName] = createSignal("");
+  const [name, setName] = createSignal('');
   const [date, setDate] = createSignal(new Date().getTime());
+  const [price, setPrice] = createSignal(0);
 
   const [mutate] = createMutation<QueryTypes.Student, MutationTypes.Student>(
     studentMutation,
@@ -35,11 +36,18 @@ export const CreateStudent: Component = () => {
         class="input input-secondary w-full"
         onChange={(e) => setDate(new Date(e.currentTarget.value).getTime())}
       />
+      <input
+        type="number"
+        value={40}
+        placeholder="Lesson price"
+        class="input input-secondary w-full pl-4"
+        onChange={(e) => setPrice(parseFloat(e.currentTarget.value))}
+      />
       <button
         class="btn btn-primary w-full"
         onClick={() => {
           mutate({
-            variables: { name: name(), startDate: date() },
+            variables: { name: name(), startDate: date(), price: price() },
           });
         }}
       >
