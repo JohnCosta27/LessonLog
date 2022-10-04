@@ -61,10 +61,10 @@ export const LessonListItem: Component<LessonListItemProps> = (props) => {
         <p
           contentEditable={true}
           onInput={(e) => setUpdateSummary(e.currentTarget.innerText)}
-          class={`focus:${
+          class={`${
             updateSummary() === lesson.summary
-              ? 'outline-success'
-              : 'outline-warning'
+              ? 'focus:outline-success'
+              : 'focus:outline-warning'
           } outline-none rounded-sm`}
         >
           {lesson.summary}
