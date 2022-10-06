@@ -31,7 +31,7 @@ export const resolvers = {
           },
         });
         return students;
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
         return [];
       }
@@ -47,7 +47,7 @@ export const resolvers = {
             },
           },
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.log(e);
           return [];
         });
@@ -73,7 +73,7 @@ export const resolvers = {
           }
         });
         return newStudent;
-      } catch (e) {
+      } catch (e: any) {
         return undefined;
       }
     },
@@ -92,7 +92,7 @@ export const resolvers = {
           },
         });
         return newLesson;
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
         return undefined;
       }
@@ -116,7 +116,7 @@ export const resolvers = {
           },
         });
         return newHourBank;
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
         return undefined;
       }
@@ -211,7 +211,7 @@ export const resolvers = {
           },
         });
         return updateLesson;
-      } catch (e) {
+      } catch (e: any) {
         console.log(e);
         return undefined;
       }
