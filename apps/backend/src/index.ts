@@ -13,6 +13,6 @@ server.start().then(() => {
   server.applyMiddleware({ app, path: "/", cors: true });
 });
 
-app.listen(3001, () => {
+app.listen(3030, () => {
   console.log("Server started");
 });
