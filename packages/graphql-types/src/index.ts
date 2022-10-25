@@ -8,6 +8,7 @@ export namespace QueryTypes {
     price: number;
     paid: boolean;
     summary: string | null;
+    hourBankId: string | null;
   }
   export interface Student {
     id: string;

@@ -18,7 +18,7 @@ export const StudentListItem: Component<StudentListItemProps> = (props) => {
     setAvailableHours(
       hourBanks.reduce(
         (prev, current) => prev + current.hoursLeft,
-        -lessons.length
+        -lessons.filter(l => l.hourBankId).length
       )
     );
   });
