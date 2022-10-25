@@ -8,6 +8,7 @@ export const CreateStudentLesson: Component = () => {
   const [student, setStudent] = createSignal('');
   const [lessonTime, setLessonTime] = createSignal(new Date().getTime());
   const [summary, setSummary] = createSignal('');
+  const [duration, setDuration] = createSignal(1);
 
   const data = createQuery<{ students: QueryTypes.Student[] }>(studentQuery);
   const [mutateLesson] = createMutation<
@@ -43,6 +44,12 @@ export const CreateStudentLesson: Component = () => {
         onChange={(e) => setSummary(e.currentTarget.value)}
       />
       <input
+        type="number"
+        class="input input-secondary w-full"
+        value={duration()}
+        onChange={(e) => setDuration(parseFloat(e.currentTarget.value))}
+      />
+      <input
         type="datetime-local"
         step={15 * 60}
         value={`${Temporal.Now.plainDateISO()}T16:00`}
@@ -60,6 +67,7 @@ export const CreateStudentLesson: Component = () => {
               date: lessonTime(),
               price: 40,
               summary: summary(),
+              duration: duration(),
             },
           });
         }}

@@ -27,6 +27,7 @@ model Lessons {
   date       DateTime   @db.Timestamp()
   price      Float
   paid       Boolean    @default(false)
+  duration   Float
   // Nullable foreign key
   hourBankId String?
   hourBank   HourBanks? @relation(fields: [hourBankId], references: [id])
@@ -42,9 +43,9 @@ model HourBanks {
   studentId      String
   student        Students      @relation(fields: [studentId], references: [id])
   date           DateTime      @db.Timestamp()
-  hours          Int
+  hours          Float
   // Denormalised, it's just easier to check this value than to count foreign keys.
-  hoursLeft      Int
+  hoursLeft      Float
   // This starts the same as hours, this would be done in API.
   lessons        Lessons[]
   // The price that this hour bank relates to

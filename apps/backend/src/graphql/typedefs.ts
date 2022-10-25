@@ -18,6 +18,7 @@ export const typeDefs = gql`
     student: LessonStudent
     date: Float!
     price: Float!
+    duration: Float!
     paid: Boolean!
     summary: String
   }
@@ -25,8 +26,8 @@ export const typeDefs = gql`
     id: String!
     studentId: String!
     date: Float!
-    hours: Int!
-    hoursLeft: Int!
+    hours: Float!
+    hoursLeft: Float!
   }
   type StudentPrice {
     id: String!
@@ -45,6 +46,7 @@ export const typeDefs = gql`
       studentId: String!
       date: Float!
       price: Float!
+      duration: Float!
       summary: String
       paid: Boolean
     ): Lesson
@@ -53,9 +55,10 @@ export const typeDefs = gql`
       studentId: String
       date: Float
       price: Float
+      duration: Float
       summary: String
       paid: Boolean
     ): Lesson
-    addHourBank(studentId: String!, hours: Int!, date: Float!): HourBank
+    addHourBank(studentId: String!, hours: Float!, date: Float!): HourBank
   }
 `;

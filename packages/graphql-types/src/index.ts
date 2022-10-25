@@ -7,6 +7,7 @@ export namespace QueryTypes {
     date: Date;
     price: number;
     paid: boolean;
+    duration: number;
     summary: string | null;
     hourBankId: string | null;
   }
@@ -43,6 +44,7 @@ export namespace MutationTypes {
     studentId: string;
     date: number;
     price: number;
+    duration: number;
     paid?: boolean;
     hourBankId?: string;
     summary?: string;

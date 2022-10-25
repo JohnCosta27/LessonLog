@@ -79,7 +79,7 @@ export const resolvers = {
     },
     async addLesson(
       _: unknown,
-      { studentId, date, price, paid, summary }: MutationTypes.Lesson
+      { studentId, date, price, paid, summary, duration }: MutationTypes.Lesson
     ): Promise<QueryTypes.Lesson | undefined> {
       try {
         const newLesson = await prisma.lessons.create({
@@ -89,6 +89,7 @@ export const resolvers = {
             price: price,
             paid: !!paid,
             summary: summary,
+            duration: duration,
           },
         });
         return newLesson;
@@ -140,6 +141,7 @@ export const resolvers = {
               id: lessonId,
             },
             select: {
+              duration: true,
               student: {
                 select: {
                   id: true,
@@ -162,11 +164,11 @@ export const resolvers = {
               data: {
                 studentId: totalBanks.student.id,
                 date: new Date(),
-                hours: 1,
+                hours: totalBanks.duration,
                 // If the user is PAYING the lesson, then we should create a record with no hours
                 // left (as it is a one off), otherwise if it is an unpay lesson (refund ish), we should
                 // give them an extra hour.
-                hoursLeft: data.paid ? 0 : 1,
+                hoursLeft: data.paid ? 0 : totalBanks.duration,
                 studentPriceId: latestPrice.id,
               },
             });
@@ -183,7 +185,7 @@ export const resolvers = {
               },
               data: {
                 hoursLeft: {
-                  decrement: data.paid ? 1 : -1,
+                  decrement: data.paid ? totalBanks.duration : -totalBanks.duration,
                 },
                 hours: {
                   increment:

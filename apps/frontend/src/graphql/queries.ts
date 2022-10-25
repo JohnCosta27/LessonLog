@@ -10,6 +10,7 @@ export const studentQuery = gql`
         id
         studentId
         price
+        duration
         paid
         summary
       }
@@ -37,6 +38,7 @@ export const lessonQuery = gql`
       studentId
       date
       price
+      duration
       paid
       summary
       student {

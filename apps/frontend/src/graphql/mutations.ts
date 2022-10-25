@@ -14,18 +14,21 @@ export const lessonMutation = gql`
     $studentId: String!
     $date: Float!
     $price: Float!
+    $duration: Float!
     $summary: String
   ) {
     addLesson(
       studentId: $studentId
       date: $date
       price: $price
+      duration: $duration
       summary: $summary
     ) {
       id
       studentId
       date
       price
+      duration
       summary
     }
   }
@@ -47,6 +50,7 @@ export const lessonUpdateMutation = gql`
     $studentId: String
     $date: Float
     $price: Float
+    $duration: Float
     $summary: String
     $paid: Boolean
   ) {
@@ -55,12 +59,14 @@ export const lessonUpdateMutation = gql`
       studentId: $studentId
       date: $date
       price: $price
+      duration: $duration
       summary: $summary
       paid: $paid
     ) {
       studentId
       date
       price
+      duration
       summary
       paid
     }
