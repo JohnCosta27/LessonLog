@@ -2,7 +2,7 @@
   "name": "@lesson-log/backend",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "build": "rm -r dist && tsc"
+    "build": "rm tsconfig.tsbuildinfo && rm -r dist && tsc"
   },
   "dependencies": {
     "@lessonlog/graphql-types": "workspace:*",
