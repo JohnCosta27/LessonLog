@@ -35,7 +35,7 @@ export const lessonMutation = gql`
 `;
 
 export const hourBankMutation = gql`
-  mutation addHourBank($studentId: String!, $date: Float!, $hours: Int!) {
+  mutation addHourBank($studentId: String!, $date: Float!, $hours: Float!) {
     addHourBank(studentId: $studentId, date: $date, hours: $hours) {
       studentId
       date
